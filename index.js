@@ -1,7 +1,3 @@
-"use strict";
-function __export(m) {
-    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-}
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -9,21 +5,10 @@ function __export(m) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var compiler_1 = require('@angular/compiler');
-exports.StaticReflector = compiler_1.StaticReflector;
-exports.StaticSymbol = compiler_1.StaticSymbol;
-var codegen_1 = require('./src/codegen');
-exports.CodeGenerator = codegen_1.CodeGenerator;
-var compiler_host_1 = require('./src/compiler_host');
-exports.CompilerHost = compiler_host_1.CompilerHost;
-exports.ModuleResolutionHostAdapter = compiler_host_1.ModuleResolutionHostAdapter;
-exports.NodeCompilerHostContext = compiler_host_1.NodeCompilerHostContext;
-var extractor_1 = require('./src/extractor');
-exports.Extractor = extractor_1.Extractor;
-__export(require('@angular/tsc-wrapped'));
-var version_1 = require('./src/version');
-exports.VERSION = version_1.VERSION;
-// TODO(hansl): moving to Angular 4 need to update this API.
-var ngtools_api_1 = require('./src/ngtools_api');
-exports.__NGTOOLS_PRIVATE_API_2 = ngtools_api_1.NgTools_InternalApi_NG_2;
+/**
+ * @module
+ * @description
+ * Entry point for all public APIs of the core package.
+ */
+export { createPlatform, assertPlatform, destroyPlatform, getPlatform, PlatformRef, ApplicationRef, enableProdMode, isDevMode, createPlatformFactory, NgProbeToken, APP_ID, PACKAGE_ROOT_URL, PLATFORM_INITIALIZER, APP_BOOTSTRAP_LISTENER, APP_INITIALIZER, ApplicationInitStatus, DebugElement, DebugNode, asNativeElements, getDebugNode, Testability, TestabilityRegistry, setTestabilityGetter, TRANSLATIONS, TRANSLATIONS_FORMAT, LOCALE_ID, ApplicationModule, wtfCreateScope, wtfLeave, wtfStartTimeRange, wtfEndTimeRange, Type, EventEmitter, ErrorHandler, AnimationTransitionEvent, AnimationPlayer, AnimationStyles, AnimationKeyframe, Sanitizer, SecurityContext, ANALYZE_FOR_ENTRY_COMPONENTS, Attribute, ContentChild, ContentChildren, Query, ViewChild, ViewChildren, Component, Directive, HostBinding, HostListener, Input, Output, Pipe, AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, DoCheck, OnChanges, OnDestroy, OnInit, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, NgModule, ViewEncapsulation, Version, VERSION, Class, forwardRef, resolveForwardRef, Injector, ReflectiveInjector, ResolvedReflectiveFactory, ReflectiveKey, OpaqueToken, Inject, Optional, Injectable, Self, SkipSelf, Host, NgZone, RenderComponentType, Renderer, RootRenderer, COMPILER_OPTIONS, Compiler, CompilerFactory, ModuleWithComponentFactories, ComponentFactory, ComponentRef, ComponentFactoryResolver, ElementRef, NgModuleFactory, NgModuleRef, NgModuleFactoryLoader, getModuleFactory, QueryList, SystemJsNgModuleLoader, SystemJsNgModuleLoaderConfig, TemplateRef, ViewContainerRef, EmbeddedViewRef, ViewRef, ChangeDetectionStrategy, ChangeDetectorRef, CollectionChangeRecord, DefaultIterableDiffer, IterableDiffers, KeyValueChangeRecord, KeyValueDiffers, SimpleChange, WrappedValue, platformCore, __core_private__, AUTO_STYLE, AnimationEntryMetadata, AnimationStateMetadata, AnimationStateDeclarationMetadata, AnimationStateTransitionMetadata, AnimationMetadata, AnimationKeyframesSequenceMetadata, AnimationStyleMetadata, AnimationAnimateMetadata, AnimationWithStepsMetadata, AnimationSequenceMetadata, AnimationGroupMetadata, animate, group, sequence, style, state, keyframes, transition, trigger } from './src/core';
 //# sourceMappingURL=index.js.map
