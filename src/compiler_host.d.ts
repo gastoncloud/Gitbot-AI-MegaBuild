@@ -1,78 +1,49 @@
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-import { AotCompilerHost } from '@angular/compiler';
-import { AngularCompilerOptions, MetadataCollector, ModuleMetadata } from '@angular/tsc-wrapped';
 import * as ts from 'typescript';
-export interface CompilerHostContext extends ts.ModuleResolutionHost {
-    readResource(fileName: string): Promise<string>;
-    assumeFileExists(fileName: string): void;
+import NgOptions from './options';
+export declare function formatDiagnostics(d: ts.Diagnostic[]): string;
+/**
+ * Implementation of CompilerHost that forwards all methods to another instance.
+ * Useful for partial implementations to override only methods they care about.
+ */
+export declare abstract class DelegatingHost implements ts.CompilerHost {
+    protected delegate: ts.CompilerHost;
+    constructor(delegate: ts.CompilerHost);
+    getSourceFile: (fileName: string, languageVersion: ts.ScriptTarget, onError?: (message: string) => void) => ts.SourceFile;
+    getCancellationToken: () => ts.CancellationToken;
+    getDefaultLibFileName: (options: ts.CompilerOptions) => string;
+    getDefaultLibLocation: () => string;
+    writeFile: ts.WriteFileCallback;
+    getCurrentDirectory: () => string;
+    getDirectories: (path: string) => string[];
+    getCanonicalFileName: (fileName: string) => string;
+    useCaseSensitiveFileNames: () => boolean;
+    getNewLine: () => string;
+    fileExists: (fileName: string) => boolean;
+    readFile: (fileName: string) => string;
+    trace: (s: string) => void;
+    directoryExists: (directoryName: string) => boolean;
 }
-export declare class CompilerHost implements AotCompilerHost {
-    protected program: ts.Program;
-    protected options: AngularCompilerOptions;
-    protected context: CompilerHostContext;
-    protected metadataCollector: MetadataCollector;
-    private isGenDirChildOfRootDir;
-    protected basePath: string;
-    private genDir;
-    private resolverCache;
-    protected resolveModuleNameHost: CompilerHostContext;
-    constructor(program: ts.Program, options: AngularCompilerOptions, context: CompilerHostContext);
-    getCanonicalFileName(fileName: string): string;
-    moduleNameToFileName(m: string, containingFile: string): string | null;
-    /**
-     * We want a moduleId that will appear in import statements in the generated code.
-     * These need to be in a form that system.js can load, so absolute file paths don't work.
-     *
-     * The `containingFile` is always in the `genDir`, where as the `importedFile` can be in
-     * `genDir`, `node_module` or `basePath`.  The `importedFile` is either a generated file or
-     * existing file.
-     *
-     *               | genDir   | node_module |  rootDir
-     * --------------+----------+-------------+----------
-     * generated     | relative |   relative  |   n/a
-     * existing file |   n/a    |   absolute  |  relative(*)
-     *
-     * NOTE: (*) the relative path is computed depending on `isGenDirChildOfRootDir`.
-     */
-    fileNameToModuleName(importedFile: string, containingFile: string): string;
-    private dotRelative(from, to);
-    /**
-     * Moves the path into `genDir` folder while preserving the `node_modules` directory.
-     */
-    private rewriteGenDirPath(filepath);
-    protected getSourceFile(filePath: string): ts.SourceFile;
-    getMetadataFor(filePath: string): ModuleMetadata[];
-    readMetadata(filePath: string, dtsFilePath: string): ModuleMetadata[];
-    private upgradeVersion1Metadata(v1Metadata, dtsFilePath);
-    loadResource(filePath: string): Promise<string>;
-    loadSummary(filePath: string): string | null;
-    getOutputFileName(sourceFilePath: string): string;
-    isSourceFile(filePath: string): boolean;
-    calculateEmitPath(filePath: string): string;
+export declare class DecoratorDownlevelCompilerHost extends DelegatingHost {
+    private program;
+    private ANNOTATION_SUPPORT;
+    /** Error messages produced by tsickle, if any. */
+    diagnostics: ts.Diagnostic[];
+    constructor(delegate: ts.CompilerHost, program: ts.Program);
+    getSourceFile: (fileName: string, languageVersion: ts.ScriptTarget, onError?: (message: string) => void) => ts.SourceFile;
 }
-export declare class CompilerHostContextAdapter {
-    protected assumedExists: {
-        [fileName: string]: boolean;
-    };
-    assumeFileExists(fileName: string): void;
+export declare class TsickleCompilerHost extends DelegatingHost {
+    private oldProgram;
+    private options;
+    /** Error messages produced by tsickle, if any. */
+    diagnostics: ts.Diagnostic[];
+    constructor(delegate: ts.CompilerHost, oldProgram: ts.Program, options: NgOptions);
+    getSourceFile: (fileName: string, languageVersion: ts.ScriptTarget, onError?: (message: string) => void) => ts.SourceFile;
 }
-export declare class ModuleResolutionHostAdapter extends CompilerHostContextAdapter implements CompilerHostContext {
-    private host;
-    directoryExists: ((directoryName: string) => boolean) | undefined;
-    constructor(host: ts.ModuleResolutionHost);
-    fileExists(fileName: string): boolean;
-    readFile(fileName: string): string;
-    readResource(s: string): Promise<string>;
-}
-export declare class NodeCompilerHostContext extends CompilerHostContextAdapter implements CompilerHostContext {
-    fileExists(fileName: string): boolean;
-    directoryExists(directoryName: string): boolean;
-    readFile(fileName: string): string;
-    readResource(s: string): Promise<string>;
+export declare class MetadataWriterHost extends DelegatingHost {
+    private ngOptions;
+    private metadataCollector;
+    private metadataCollector1;
+    constructor(delegate: ts.CompilerHost, ngOptions: NgOptions);
+    private writeMetadata(emitFilePath, sourceFile);
+    writeFile: ts.WriteFileCallback;
 }

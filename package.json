@@ -1,18 +1,19 @@
 {
-  "name": "@angular/core",
-  "version": "2.4.10",
-  "description": "Angular - the core framework",
-  "main": "bundles/core.umd.js",
-  "module": "index.js",
-  "typings": "index.d.ts",
-  "author": "angular",
+  "name": "@angular/tsc-wrapped",
+  "version": "0.5.2",
+  "description": "Wraps the tsc CLI, allowing extensions.",
+  "homepage": "https://github.com/angular/angular/tree/master/tools/tsc-wrapped",
+  "bugs": "https://github.com/angular/angular/issues",
+  "contributors": [
+    "Alex Eagle <alexeagle@google.com>",
+    "Chuck Jazdzewski <chuckj@google.com>"
+  ],
   "license": "MIT",
-  "peerDependencies": {
-    "rxjs": "^5.0.1",
-    "zone.js": "^0.7.2"
+  "repository": {"type":"git","url":"https://github.com/angular/angular.git"},
+  "dependencies": {
+    "tsickle": "^0.2"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/angular/angular.git"
+  "peerDependencies": {
+    "typescript": "^2.0.2"
   }
 }
