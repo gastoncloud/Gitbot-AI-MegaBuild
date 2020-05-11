@@ -1,0 +1,2 @@
+- name: TypeScript Container Action Template
+  uses: kevinpollet/typescript-container-action-template@v1
