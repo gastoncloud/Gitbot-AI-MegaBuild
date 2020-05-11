@@ -1,0 +1,7 @@
+venv
+env
+.code/
+*.pyc
+model.pickle
+.idea/
+
